@@ -1,5 +1,4 @@
 import os.path
-import re
 import Util
 #varialbles
 debug = True #set to true for debug messages
