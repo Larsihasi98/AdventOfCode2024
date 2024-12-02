@@ -1,15 +1,3 @@
-import os.path
-import re
-#varialbles
-debug = False #set to true for debug messages
-
-#File Directories
-root = os.path.abspath(os.getcwd())
-resc = os.path.join(root,"Ressources")
-filepath = os.path.join(resc, "input.txt")
-
-print("Advent of Code day 1")
-
 #Try to read the input File
 if debug: 
     print(f"Root Directory: {root}, ressources: {resc} leading to file: {filepath}")
