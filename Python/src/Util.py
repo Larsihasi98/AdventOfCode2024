@@ -19,14 +19,14 @@ def importText(path):
         if DEBUG:
             for line in content:
                 print(line)
-        return np.array(content)
+        return content
 
 #Splits the input properly into a 2dimensional array
 def splitLines(lines):
-    out = np.array
+    out = []
     for line in lines:
         split = re.split(r"\s+",line)
-        np.append(out, split, 2)
+        out.append(split)
         
         if DEBUG:
             print(f"Splitting {line} into {split}")
@@ -34,18 +34,22 @@ def splitLines(lines):
 
 #Parses a code made up of strings into ints
 def parseInt(content):
-    out = [[]]  
+    
     if(not isinstance(content, list)):
-        out = int(content)
+        content = int(content) # Check if input is not a list
     else:
         for i in range(len(content)):
-            if(not isinstance(i, list)):
-                out.append(int(i))
+            if(not isinstance(content[i], list)):
+                content[i]=int(content[i]) # Check if input is 1 dimensional
             else:
-                out.append([int(item) for item in content])
-
-    return out
+                for j in range(len(content[i])):
+                    content[i][j]=int(content[i][j]) # Check if input is 2 dimensional
+    return content
 
 #Transposes the matrix using numpy
 def transpose(lines):
-    return np.transpose(lines)
+
+    array = np.array(lines)
+    array = np.transpose(array)
+
+    return array.tolist()
