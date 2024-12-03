@@ -93,16 +93,4 @@ public class ImportUtility
 
         return arrayOut; 
     }
-
-    public static int[] convertToInt(String[] arrayIn)
-    {
-        int arrayOut[] = new int[arrayIn.length];
-        
-        for(int i = 0; i < arrayIn.length; i++)
-        {
-            arrayOut[i] = Integer.parseInt(arrayIn[i]);
-        }
-
-        return arrayOut;
-    }
 }
