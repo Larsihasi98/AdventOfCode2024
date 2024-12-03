@@ -4,9 +4,11 @@ import java.io.InputStreamReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.regex.*;
 
 import helper.ImportUtility;
-
+import helper.StringUtility;
 public class Main 
 {
     static final String ROOT = System.getProperty("user.dir")+"\\java";
@@ -14,9 +16,8 @@ public class Main
     static final boolean DEBUG = false;
     public static void main(String[] args)
     {
-        //Day1();
-
-        Day2("input2.txt");
+        //Day3.run("input3.txt", 1);
+        Day3.run("input3.txt", 2);
     }
 
     public static void Day1()
@@ -113,7 +114,7 @@ public class Main
 
             for(int i = 0; i < lines.length; i++)
             {
-                numbers[i] = ImportUtility.convertToInt(lines[i]);
+                numbers[i] = StringUtility.convertToInt(lines[i]);
             }
 
             int count = 0;
@@ -136,6 +137,34 @@ public class Main
                     System.out.printf("The line is " + (safe?"safe":"unsafe") + "\n");
             }
             System.out.printf("%n there were %d safe lines.%n", count);
+        }
+    }
+
+    public static void Day3(String fileName)
+    {
+        String input[] = ImportUtility.getLines(RessourcePath+fileName);
+        if(input!=null)
+        {
+            Pattern pattern = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)");
+            if(DEBUG)
+            {
+                for(String line : input)
+                {
+                    System.out.printf(StringUtility.sanitiseString(line)+"\n");
+                }
+            }
+
+            ArrayList<String> instructions = new ArrayList<String>();
+
+            for(String line : input)
+            {
+                Matcher matcher = pattern.matcher(line);
+
+                while(matcher.find())
+                {
+                    instructions.add(matcher.group());
+                }
+            }
         }
     }
 
