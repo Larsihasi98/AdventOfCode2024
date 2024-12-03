@@ -12,7 +12,7 @@ public class Day3
 
     public static void run(String filename, int part)
     {
-        String input[] = ImportUtility.getLines(Main.RessourcePath+filename);
+        String input[] = ImportUtility.getLines(Main.RESSOURCEPATH+filename);
         if(input!=null)
         {
             if(DEBUG)
@@ -26,7 +26,7 @@ public class Day3
             if(part == 1)
             {
                 Pattern pattern = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)");
-                ArrayList<String> instructions = new ArrayList<String>();
+                ArrayList<String> instructions = new ArrayList<>();
 
                 for(String line : input)
                 {
@@ -74,7 +74,7 @@ public class Day3
             else if (part == 2)
             {
                 Pattern pattern = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)|do\\(\\)|don't\\(\\)");
-                ArrayList<String> instructions = new ArrayList<String>();
+                ArrayList<String> instructions = new ArrayList<>();
 
                 for(String line : input)
                 {
@@ -96,7 +96,8 @@ public class Day3
 
                 int[][] numbers = new int[2][instructions.size()];
 
-                Pattern factor = Pattern.compile("\\d{1,3}");
+                Pattern factor = Pattern.compile("\\d{1,3}");                
+                Pattern mulPattern = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)");
                 boolean dobidibido = true;
 
                 for(int i = 0; i<instructions.size(); i++)
@@ -109,7 +110,7 @@ public class Day3
                     }
 
                     Matcher matcher = factor.matcher(instruction);
-                    Matcher matcherMul = pattern.matcher(instruction);
+                    Matcher matcherMul = mulPattern.matcher(instruction);
                     if(instruction.equals("do()"))
                     {
                         dobidibido = true;

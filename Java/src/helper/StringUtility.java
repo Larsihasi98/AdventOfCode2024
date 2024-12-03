@@ -1,8 +1,6 @@
 package helper;
 import java.util.List;
-import java.net.InterfaceAddress;
 import java.util.ArrayList;
-import java.util.regex.*;
 
 public class StringUtility 
 {
@@ -33,7 +31,7 @@ public class StringUtility
 
     public static List<Integer> convertToInt(List<String> listIn)
     {
-        List<Integer> out = new ArrayList<Integer>();
+        List<Integer> out = new ArrayList<>();
         
         for(int i = 0; i < listIn.size(); i++)
         {

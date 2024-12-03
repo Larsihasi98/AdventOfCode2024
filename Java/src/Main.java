@@ -1,7 +1,9 @@
 public class Main 
 {
     static final String ROOT = System.getProperty("user.dir")+"\\java";
-    static final String RessourcePath = ROOT+"\\resc\\";
+    @SuppressWarnings("unused")
+    static final String RESSOURCEPATH = ROOT+"\\resc\\";
+    @SuppressWarnings("unused")
     static final boolean DEBUG = false;
     public static void main(String[] args)
     {

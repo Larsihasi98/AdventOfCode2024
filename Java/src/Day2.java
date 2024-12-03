@@ -7,7 +7,7 @@ public class Day2
 
     public static void run(String fileName)
     {
-        String input[] = ImportUtility.getLines(Main.RessourcePath+fileName);
+        String input[] = ImportUtility.getLines(Main.RESSOURCEPATH+fileName);
         if(input!=null)
         {
             String lines[][] = ImportUtility.splitColums(input);

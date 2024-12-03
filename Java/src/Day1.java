@@ -13,7 +13,7 @@ public class Day1
         //Path to Input
         //String ROOT = System.getProperty("user.dir");
         //String PATH = "\\resc\\input1.txt";
-        String input_path = Main.RessourcePath + "input1.txt";
+        String input_path = Main.RESSOURCEPATH + "input1.txt";
         //prepare two arrays of ints for the two sets of Numbers
         int[] num1 = null;
         int[] num2 = null;
