@@ -112,3 +112,8 @@ def turnDiagonal2(lines):
 
     return output
 
+def flattenToString(lines):
+    out = ""
+    for line in lines:
+        out = out+line
+    return out

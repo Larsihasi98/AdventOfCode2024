@@ -3,8 +3,8 @@ import Util
 import re
 
 #varialbles
-debug = False #set to true for debug messages
-part = 1
+debug = True #set to true for debug messages
+part = 2
 
 #File Directories
 root = os.path.join(os.path.abspath(os.getcwd()),"Python")
@@ -64,7 +64,54 @@ def wordPuzzle(input, word):
 
     return countHorizontal1+countVertical1+countDiagonal1+countDiagonal2+countHorizontal2+countVertical2+countDiagonal3+countDiagonal4
 
+def patternSearch(input):
+    size = len(input)
+    code = Util.flattenToString(input)
+    pattern1 = re.compile(r"M(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
+    pattern2 = re.compile(r"S(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
+    pattern3 = re.compile(r"M(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
+    pattern4 = re.compile(r"S(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
+    
+    amount = 0
+
+    if debug:
+        print(f'For Pattern: {pattern1}')
+    amount += len(re.findall(pattern1, code))
+
+    if debug:
+        print(f"Found {amount} so far")
+
+    if debug:
+        print(f'For Pattern: {pattern2}')
+    amount += len(re.findall(pattern2, code))
+
+    if debug:
+        print(f"Found {amount} so far")
+
+    if debug:
+        print(f'For Pattern: {pattern3}')
+    amount += len(re.findall(pattern3, code))
+
+    if debug:
+        print(f"Found {amount} so far")
+
+    if debug:
+        print(f'For Pattern: {pattern4}')
+    amount += len(re.findall(pattern4, code))
+
+    if debug:
+        print(f"Found {amount} so far")
+    
+    return amount
+
 if(part == 1):
     word = "XMAS"
 
     print(f"The word {word} appears {wordPuzzle(content, word)} times") 
+
+if(part ==2):
+    print(f"Who thinks of this bullshit man")
+
+    xmas = patternSearch(content)
+
+    print(f"Found an X-MAS {xmas} times")
