@@ -64,13 +64,13 @@ def wordPuzzle(input, word):
 
     return countHorizontal1+countVertical1+countDiagonal1+countDiagonal2+countHorizontal2+countVertical2+countDiagonal3+countDiagonal4
 
-def patternSearch(input):
-    size = len(input)
+def funSolution(input):
+    size = len(input[0])
     code = Util.flattenToString(input)
-    pattern1 = re.compile(r"M(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
-    pattern2 = re.compile(r"S(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
-    pattern3 = re.compile(r"M(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
-    pattern4 = re.compile(r"S(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*)")
+    pattern1 = re.compile(r"M(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    pattern2 = re.compile(r"S(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    pattern3 = re.compile(r"M(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    pattern4 = re.compile(r"S(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
     
     amount = 0
 
@@ -104,6 +104,33 @@ def patternSearch(input):
     
     return amount
 
+def boringSolution(input):
+    sizex = len(input[0])
+    sizey = len(input)
+    
+    code = Util.splitLetters(input)
+
+    candidates = []
+
+    for i in range(sizex-2):
+        for j in range(sizey-2):
+            candidates.append(code[i][j]+code[i][j+2]+code[i+1][j+1]+code[i+2][j]+code[i+2][j+2])
+    
+    if(debug):
+        print(f"List of candidates:")
+        for line in candidates:
+            print(line)
+
+    count = 0
+
+    pattern = re.compile(r"MSAMS|SMASM|MMASS|SSAMM")
+    for candidate in candidates:
+        if re.match(pattern, candidate):
+            count += 1
+
+    return count
+            
+
 if(part == 1):
     word = "XMAS"
 
@@ -112,6 +139,6 @@ if(part == 1):
 if(part ==2):
     print(f"Who thinks of this bullshit man")
 
-    xmas = patternSearch(content)
-
+    xmas = funSolution(content)
+    #xmas = boringSolution(content)
     print(f"Found an X-MAS {xmas} times")
