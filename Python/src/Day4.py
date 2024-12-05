@@ -67,37 +67,43 @@ def wordPuzzle(input, word):
 def funSolution(input):
     size = len(input[0])
     code = Util.flattenToString(input)
-    pattern1 = re.compile(r"M(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
-    pattern2 = re.compile(r"S(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
-    pattern3 = re.compile(r"M(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
-    pattern4 = re.compile(r"S(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    # pattern1 = re.compile(r"M(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    # pattern2 = re.compile(r"S(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    # pattern3 = re.compile(r"M(?=\wM(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})S\wS(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    # pattern4 = re.compile(r"S(?=\wS(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})M\wM(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
+    superiorPattern = re.compile(r"((M)|S)(?=\w((M)|S)(\w{"+str(size-2)+r"})A(\w{"+str(size-2)+r"})(?(4)S|(?(3)M))\w(?(2)S|(?(1)M))(\w{0,"+str(size-3)+r"})(\w{"+str(size)+r"})*$)")
     
     amount = 0
 
-    if debug:
-        print(f'For Pattern: {pattern1}')
-    amount += len(re.findall(pattern1, code))
+    # if debug:
+    #     print(f'For Pattern: {pattern1}')
+    # amount += len(re.findall(pattern1, code))
+
+    # if debug:
+    #     print(f"Found {amount} so far")
+
+    # if debug:
+    #     print(f'For Pattern: {pattern2}')
+    # amount += len(re.findall(pattern2, code))
+
+    # if debug:
+    #     print(f"Found {amount} so far")
+
+    # if debug:
+    #     print(f'For Pattern: {pattern3}')
+    # amount += len(re.findall(pattern3, code))
+
+    # if debug:
+    #     print(f"Found {amount} so far")
+
+    # if debug:
+    #     print(f'For Pattern: {pattern4}')
+    # amount += len(re.findall(pattern4, code))
+
 
     if debug:
-        print(f"Found {amount} so far")
-
-    if debug:
-        print(f'For Pattern: {pattern2}')
-    amount += len(re.findall(pattern2, code))
-
-    if debug:
-        print(f"Found {amount} so far")
-
-    if debug:
-        print(f'For Pattern: {pattern3}')
-    amount += len(re.findall(pattern3, code))
-
-    if debug:
-        print(f"Found {amount} so far")
-
-    if debug:
-        print(f'For Pattern: {pattern4}')
-    amount += len(re.findall(pattern4, code))
+        print(f'For Pattern: {superiorPattern}')
+    amount += len(re.findall(superiorPattern, code))
 
     if debug:
         print(f"Found {amount} so far")
