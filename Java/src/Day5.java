@@ -440,7 +440,7 @@ public class Day5
                     System.out.print("\n- The update is valid\n");
                 else
                 {
-                    System.out.print("\n- The update is valid\n");
+                    System.out.print("\n- The update is invalid\n");
                     wrongUpdates.add(instruction);
 
 
@@ -452,10 +452,10 @@ public class Day5
                     }
                     else
                     {
-                        System.out.print("\n- A valid update is: \n");
+                        System.out.print("- A valid update is: ");
                         for(int i = 0; i<update.length; i++)
                         {
-                            System.out.printf((i==update.length-1 ? "and ": "") +"%d" + (i>update.length-1 ? ", ": ", "),update[i] );
+                            System.out.printf((i==update.length-1 ? "and ": "") +"%d" + (i>update.length-1 ? "\n": ", "),update[i] );
                         }
                     }
                 }
@@ -480,11 +480,11 @@ public class Day5
                 }
                 else
                 {
-                    wrongNumb+=instruction[((instruction.length-1)/2)];
+                    wrongNumb+=update[((update.length-1)/2)];
                     System.out.print("\n- A valid update is: \n");
                     for(int i = 0; i<update.length; i++)
                     {
-                        System.out.printf((i==update.length-1 ? "and ": "") +"%d" + (i>update.length-1 ? ", ": ", "),update[i] );
+                        System.out.printf((i==update.length-1 ? "and ": "") +"%d" + (i>update.length-1 ? "\n": ", "),update[i] );
                     }
                 }
             }
@@ -494,7 +494,7 @@ public class Day5
         }
     }
 
-    private int[] orderUpdate(int[] instruction, int[][] restrictions)
+    private int[] orderUpdateRecursive(int[] instruction, int[][] restrictions)
     {
         Integer[] integer = new Integer[instruction.length];
         int[] out = null;
@@ -514,6 +514,44 @@ public class Day5
         }
 
         return out;
+    }
+
+    private int[] orderUpdate(int[] instruction, int[][] restriction)
+    {
+        int[] out = instruction.clone();
+        int i = 0;
+        int attempts  = 0;
+        int maxAttempts = 1000;
+        while(attempts <= maxAttempts && i < out.length)
+        {
+            boolean correct = true;
+            for(int j = 0; j < out.length; j++)
+            {
+                if(checkRule(out[j], out[i], restriction))
+                {
+                    if(DEBUG)
+                    {
+                        System.out.printf("\nRule ok, %d does not need to be printed before %d", instruction[j], instruction[i]);
+                    }
+                }
+                else
+                {
+                    if(DEBUG)
+                    {
+                        System.out.printf("\nRule invalid, %d needs to be printed before %d. Swapping the numbers", instruction[j], instruction[i]);
+                    }
+
+                    OtherUtility.swap(out, i, j);
+
+                    
+                    correct = false;
+                    break;
+                }
+            }
+            if(correct)
+                i++;
+        }
+        return out;        
     }
 
 
@@ -620,6 +658,25 @@ public class Day5
         }
 
         return restrictions;
+    }
+
+    private boolean checkRule(int before, int after, int[][] restrictions)
+    {
+        boolean out = true;
+        for(int i : restrictions[before])
+        {
+            if(i == after)
+            {
+                out = false;
+                {
+                    if(DEBUG)
+                    {
+                        System.out.printf("\nfalse, cause %d needs to be printed before %d", after, before);
+                    }
+                }
+            }
+        }
+        return out;
     }
 
     private void rulesToFile(String filename, int[][] restrictions)
