@@ -8,6 +8,9 @@ public class Main
     public static void main(String[] args)
     {
         //Day3.run("input3.txt", 1);
-        Day3.run("input3.txt", 2);
+        //Day3.run("input3.txt", 2);
+
+        Day5.run("input4.txt",2);
+
     }
 }

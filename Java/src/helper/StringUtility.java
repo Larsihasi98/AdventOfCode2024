@@ -40,4 +40,12 @@ public class StringUtility
 
         return out;
     }
+
+    public static String linesToString(String[] in)
+    {
+        String out = in[0];
+        for(int i = 1; i<in.length; i++)
+            out += ("\n"+in[i]); 
+        return out;
+    }
 }
